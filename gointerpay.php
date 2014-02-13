@@ -446,9 +446,9 @@ class GoInterpay extends PaymentModule
         foreach ($sqlprod as $row)
         {
             $category = $row['category'];
-            $row['value'] = Tools::jsonEncode(array(intval($row['id_category']), intval($row['id_product'])), JSON_NUMERIC_CHECK);
+            $row['value'] = Tools::jsonEncode(array((int)$row['id_category'], (int)$row['id_product']), JSON_NUMERIC_CHECK);
             $gointerpay_export_product = Tools::jsonDecode(Configuration::get('GOINTERPAY_EXPORT_PRODUCT'));
-            $row['checked'] = (in_array('['.intval($row['id_category']).','.intval($row['id_product']).']', (is_array($gointerpay_export_product)) ? $gointerpay_export_product : array()));
+            $row['checked'] = (in_array('['.(int)$row['id_category'].','.(int)$row['id_product'].']', (is_array($gointerpay_export_product)) ? $gointerpay_export_product : array()));
             unset($row['category'], $row['id_category']);
 
             $gointerpay_category_products_list[$category][] = $row;
